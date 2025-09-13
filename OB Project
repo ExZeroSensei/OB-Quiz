@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Observation Behaviour Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        h1 {
+            color: olive;
+            font-weight: bold;
+            text-align: center;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: block;
+            margin: 8px 0;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: olive;
+            color: white;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #556b2f;
+        }
+        .result {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: olive;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Observation Behaviour Quiz</h1>
+
+    <div class="quiz-container">
+        <div id="quiz"></div>
+        <button class="btn" id="submit">Submit</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "1. What is observation?",
+                options: ["Guessing", "Careful watching", "Ignoring", "Dreaming"],
+                answer: 1
+            },
+            {
+                question: "2. Which sense is primarily used in observation?",
+                options: ["Touch", "Taste", "Sight", "Smell"],
+                answer: 2
+            },
+            {
+                question: "3. Why is observation important in behaviour studies?",
+                options: ["It helps in guessing", "It provides insights", "It wastes time", "It is unnecessary"],
+                answer: 1
+            },
+            {
+                question: "4. Which tool aids observation?",
+                options: ["Microscope", "Calculator", "Phone", "Television"],
+                answer: 0
+            },
+            {
+                question: "5. Observations must be:",
+                options: ["Subjective", "Factual", "Random", "Imaginative"],
+                answer: 1
+            },
+            {
+                question: "6. Behavioural observation helps in understanding:",
+                options: ["Emotions", "Weather", "Politics", "History"],
+                answer: 0
+            },
+            {
+                question: "7. Which of the following should be avoided during observation?",
+                options: ["Interference", "Notes", "Patience", "Focus"],
+                answer: 0
+            },
+            {
+                question: "8. Observations are recorded in:",
+                options: ["Memory", "Reports", "Fictions", "Songs"],
+                answer: 1
+            },
+            {
+                question: "9. Observation helps in:",
+                options: ["Prediction", "Storytelling", "Poetry", "Dance"],
+                answer: 0
+            },
+            {
+                question: "10. Objective observation is free from:",
+                options: ["Bias", "Accuracy", "Details", "Context"],
+                answer: 0
+            },
+            {
+                question: "11. Observational studies are common in which field?",
+                options: ["Science", "Music", "Cooking", "Fashion"],
+                answer: 0
+            },
+            {
+                question: "12. Non-verbal behaviour includes:",
+                options: ["Speech", "Facial expressions", "Songs", "Lectures"],
+                answer: 1
+            },
+            {
+                question: "13. A good observer should have:",
+                options: ["Patience", "Laziness", "Confusion", "Anger"],
+                answer: 0
+            },
+            {
+                question: "14. Observations should be:",
+                options: ["Detailed", "Vague", "Confusing", "Unnecessary"],
+                answer: 0
+            },
+            {
+                question: "15. Observation helps in improving:",
+                options: ["Communication", "Cooking", "Driving", "Sleeping"],
+                answer: 0
+            },
+            {
+                question: "16. Recording observations helps in:",
+                options: ["Research", "Fiction writing", "Songs", "Entertainment"],
+                answer: 0
+            },
+            {
+                question: "17. Observations can be:",
+                options: ["Continuous", "Occasional", "Unplanned", "Imaginative"],
+                answer: 0
+            },
+            {
+                question: "18. Behaviour is observed in:",
+                options: ["People", "Mountains", "Books", "Cars"],
+                answer: 0
+            },
+            {
+                question: "19. Observations require:",
+                options: ["Concentration", "Laziness", "Distraction", "Argument"],
+                answer: 0
+            },
+            {
+                question: "20. Observation helps in solving:",
+                options: ["Problems", "Games", "Songs", "Dreams"],
+                answer: 0
+            }
+        ];
+
+        const quizContainer = document.getElementById("quiz");
+        const resultContainer = document.getElementById("result");
+        const submitButton = document.getElementById("submit");
+
+        function loadQuiz() {
+            const output = [];
+            quizData.forEach((currentQuestion, index) => {
+                const options = currentQuestion.options.map((option, i) =>
+                    `<label>
+                        <input type="radio" name="question${index}" value="${i}">
+                        ${option}
+                    </label>`
+                ).join('');
+                
+                output.push(
+                    `<div class="question">
+                        <p>${currentQuestion.question}</p>
+                        <div class="options">${options}</div>
+                    </div>`
+                );
+            });
+            quizContainer.innerHTML = output.join('');
+        }
+
+        function showResults() {
+            let score = 0;
+            quizData.forEach((currentQuestion, index) => {
+                const selector = `input[name=question${index}]:checked`;
+                const selectedOption = document.querySelector(selector);
+                if(selectedOption && parseInt(selectedOption.value) === currentQuestion.answer) {
+                    score++;
+                }
+            });
+            resultContainer.textContent = `You scored ${score} out of ${quizData.length}`;
+        }
+
+        submitButton.addEventListener("click", showResults);
+
+        loadQuiz();
+    </script>
+
+</body>
+</html>
